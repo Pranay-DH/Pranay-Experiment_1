@@ -1,1 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Registry of Historical Artifacts & Special Collections</title>
+    
+    <!-- Google Fonts for Archival Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        parchment: {
+                            50: '#FAF6EE',
+                            100: '#F5EFE0',
+                            200: '#EFE3C3',
+                            300: '#E4D3A5',
+                            400: '#D5BE82',
+                            800: '#4A3B2C',
+                            900: '#2B1E17'
+                        },
+                        crimson: {
+                            600: '#A62626',
+                            700: '#8B1E1E',
+                            800: '#6C1313',
+                            900: '#4A0C0C'
+                        },
+                        brass: {
+                            400: '#D4AF37',
+                            500: '#C8963E',
+                            600: '#9E7328'
+                        },
+                        ink: '#1C130E'
+                    },
+                    fontFamily: {
+                        serif: ['"EB Garamond"', 'serif'],
+                        display: ['"Playfair Display"', 'Georgia', 'serif'],
+                        heading: ['"Cormorant Garamond"', 'serif'],
+                        mono: ['"Courier Prime"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
 
+    <style>
+        /* Parchment Background Pattern */
+        body {
+            background-color: #FAF6EE;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(200, 150, 62, 0.05) 0%, transparent 80%),
+                radial-gradient(circle at 20% 20%, rgba(139, 30, 30, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(43, 30, 23, 0.05) 0%, transparent 50%);
+            color: #1C130E;
+        }
+
+        /* Double Ornate Borders */
+        .ornate-border {
+            border: 3px double #8B1E1E;
+            box-shadow: inset 0 0 15px rgba(139, 30, 30, 0.06);
+        }
+        .ornate-border-gold {
+            border: 3px double #C8963E;
+            box-shadow: inset 0 0 15px rgba(200, 150, 62, 0.08);
+        }
+
+        /* Ledger Index Dot Leader Line */
+        .dot-leader {
+            flex-grow: 1;
+            border-bottom: 2px dotted #8C7257;
+            margin: 0 12px;
+            position: relative;
+            top: -4px;
+        }
+
+        /* Stamp Effect */
+        .archival-stamp {
+            display: inline-block;
+            padding: 4px 12px;
+            text-transform: uppercase;
+            font-family: 'Courier Prime', monospace;
+            font-weight: 700;
+            border: 2px solid #8B1E1E;
+            color: #8B1E1E;
+            letter-spacing: 2px;
+            transform: rotate(-3deg);
+            opacity: 0.88;
+            border-radius: 2px;
+            box-shadow: 0 0 0 1px rgba(139, 30, 30, 0.2);
+        }
+
+        .archival-stamp-green {
+            border-color: #2D6A4F;
+            color: #2D6A4F;
+            transform: rotate(2deg);
+        }
+
+        /* Simulated Wax Seal */
+        .wax-seal {
+            width: 58px;
+            height: 58px;
+            background: radial-gradient(circle at 30% 30%, #B22222, #6C1313);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #D4AF37;
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.35), inset -2px -2px 6px rgba(0,0,0,0.5), inset 2px 2px 6px rgba(255,255,255,0.3);
+            border: 1px solid #8B1E1E;
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            user-select: none;
+        }
+
+        /* 16mm Film Reel Flicker Animation */
+        @keyframes filmFlicker {
+            0% { opacity: 0.95; }
+            20% { opacity: 0.85; }
+            40% { opacity: 0.98; }
+            60% { opacity: 0.88; }
+            80% { opacity: 0.93; }
+            100% { opacity: 0.95; }
+        }
+        .film-flicker {
+            animation: filmFlicker 0.15s infinite;
+        }
+
+        /* Custom Scrollbar for Ledger */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #EFE3C3;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #9E7328;
+            border-radius: 2px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8B1E1E;
+        }
+
+        /* Vintage Card Hover */
+        .catalog-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .catalog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -6px rgba(43, 30, 23, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-serif selection:bg-crimson-700 selection:text-amber-100">
+
+    <!-- Top Ledger Bar -->
+    <div class="bg-parchment-900 text-parchment-100 text-xs py-2 px-4 border-b border-brass-600/40">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2 font-mono">
+            <div class="flex items-center space-x-4">
+                <span><i class="fa-solid fa-building-columns text-brass-400 mr-2"></i>DEPT OF SPECIAL COLLECTIONS</span>
+                <span class="hidden sm:inline text-brass-500">|</span>
+                <span class="hidden sm:inline"><i class="fa-solid fa-box-archive text-brass-400 mr-1"></i>TOTAL CATALOGED: <strong id="catalog-count-badge" class="text-brass-400">1,482 ARTIFACTS</strong></span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span id="system-status-indicator" class="text-emerald-400"><i class="fa-solid fa-circle text-[8px] mr-1 animate-pulse"></i>DIGITAL VAULT: ONLINE</span>
+                <button id="open-research-folder" class="bg-crimson-700 hover:bg-crimson-600 text-amber-100 px-3 py-1 rounded-sm flex items-center space-x-2 transition-colors border border-crimson-800 shadow-sm">
+                    <i class="fa-solid fa-folder-closed"></i>
+                    <span class="font-bold">RESEARCH FOLDER</span>
+                    <span id="research-count" class="bg-amber-100 text-crimson-900 px-1.5 py-0.5 text-[10px] font-bold rounded-full">0</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header Banner -->
+    <header class="bg-parchment-100 border-b-4 border-double border-crimson-700 py-10 px-4 relative overflow-hidden shadow-md">
+        <div class="max-w-6xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+            
+            <div class="flex items-center space-x-6">
+                <!-- Archival Seal Icon -->
+                <div class="wax-seal flex-shrink-0 hidden sm:flex text-2xl shadow-xl">
+                    <i class="fa-solid fa-feather-pointed"></i>
+                </div>
+                <div>
+                    <div class="text-xs uppercase font-mono tracking-widest text-crimson-700 font-bold mb-1">
+                        Established 1894 &bull; Archival Finding Aid & Digitization Repository
+                    </div>
+                    <h1 class="text-3xl sm:text-5xl font-display font-extrabold text-parchment-900 tracking-tight leading-none mb-2">
+                        THE REGISTRY OF HISTORICAL ARTIFACTS
+                    </h1>
+                    <p class="text-base sm:text-lg italic text-parchment-800 font-heading">
+                        Curated, Cataloged & Digitally Conserved by <span class="font-semibold text-crimson-800 underline decoration-brass-500 underline-offset-4">Senior Archivist Dr. Aurelius Vance, Ph.D.</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Header Quick Badge -->
+            <div class="flex-shrink-0 bg-parchment-200 p-3 rounded ornate-border border-crimson-700 text-center font-mono text-xs max-w-xs shadow-inner">
+                <div class="text-crimson-800 font-bold uppercase border-b border-parchment-400 pb-1 mb-1">
+                    <i class="fa-solid fa-stamp mr-1"></i>Conservation Status
+                </div>
+                <div class="text-parchment-900">100% Acid-Free Digital Storage</div>
+                <div class="text-brass-600 font-semibold mt-1">ISO 16363 Trustworthy Repository</div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Main Page Wrapper -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
+
+        <!-- SECTION: TABLE OF CONTENTS (FINDING AID INDEX) -->
+        <section id="table-of-contents" class="mb-12 bg-parchment-100 p-6 sm:p-8 rounded ornate-border-gold shadow-lg relative">
+            <div class="absolute -top-3 left-8 bg-parchment-100 px-3 font-mono text-xs text-crimson-800 font-bold uppercase tracking-widest border border-brass-500">
+                FINDING AID INDEX &bull; FORM 104-B
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                <div class="md:col-span-4 border-b md:border-b-0 md:border-r border-brass-600/30 pb-4 md:pb-0 md:pr-6">
+                    <h2 class="text-2xl font-display font-bold text-parchment-900 mb-2">
+                        Master Finding Aid
+                    </h2>
+                    <p class="text-sm text-parchment-800 leading-relaxed italic">
+                        Use this index ledger to navigate digitized manuscripts, high-resolution photographic plates, field sound cylinders, and administrative tools.
+                    </p>
+                    <div class="mt-4 archival-stamp text-xs">
+                        CLASSIFICATION: UNRESTRICTED
+                    </div>
+                </div>
+
+                <!-- Ledger Index Jump Links -->
+                <div class="md:col-span-8 space-y-2.5 font-heading text-base sm:text-lg">
+                    <div class="flex items-center hover:bg-parchment-200/60 p-1 rounded transition-colors">
+                        <a href="#catalog-search" class="font-bold text-crimson-800 hover:underline">I. CATALOG OVERVIEW & SEARCH ENGINE</a>
+                        <span class="dot-leader"></span>
+                        <span class="font-mono text-xs text-parchment-800">SEC. 01</span>
+                    </div>
+
+                    <div class="flex items-center hover:bg-parchment-200/60 p-1 rounded transition-colors">
+                        <a href="#collections-overview" class="font-bold text-crimson-800 hover:underline">II. CURATED COLLECTIONS (FONDS)</a>
+                        <span class="dot-leader"></span>
+                        <span class="font-mono text-xs text-parchment-800">SEC. 02</span>
+                    </div>
+
+                    <div class="flex items-center hover:bg-parchment-200/60 p-1 rounded transition-colors">
+                        <a href="#the-vault" class="font-bold text-crimson-800 hover:underline">III. THE VAULT (PHOTOGRAPHS, AUDIO & FILM REELS)</a>
+                        <span class="dot-leader"></span>
+                        <span class="font-mono text-xs text-parchment-800">SEC. 03</span>
+                    </div>
+
+                    <div class="flex items-center hover:bg-parchment-200/60 p-1 rounded transition-colors">
+                        <a href="#manuscript-reader" class="font-bold text-crimson-800 hover:underline">IV. MANUSCRIPT READER & TRANSCRIPTIONS</a>
+                        <span class="dot-leader"></span>
+                        <span class="font-mono text-xs text-parchment-800">SEC. 04</span>
+                    </div>
+
+                    <div class="flex items-center hover:bg-parchment-200/60 p-1 rounded transition-colors">
+                        <a href="#archivist-statement" class="font-bold text-crimson-800 hover:underline">V. ARCHIVIST'S STATEMENT & ETHICS</a>
+                        <span class="dot-leader"></span>
+                        <span class="font-mono text-xs text-parchment-800">SEC. 05</span>
+                    </div>
+
+                    <div class="flex items-center hover:bg-parchment-200/60 p-1 rounded transition-colors">
+                        <a href="#citation-generator" class="font-bold text-crimson-800 hover:underline">VI. ARCHIVAL CITATION GENERATOR TOOL</a>
+                        <span class="dot-leader"></span>
+                        <span class="font-mono text-xs text-parchment-800">SEC. 06</span>
+                    </div>
+
+                    <div class="flex items-center hover:bg-parchment-200/60 p-1 rounded transition-colors">
+                        <a href="#access-request" class="font-bold text-crimson-800 hover:underline">VII. MATERIAL ACCESS & REPRODUCTION REQUEST</a>
+                        <span class="dot-leader"></span>
+                        <span class="font-mono text-xs text-parchment-800">SEC. 07</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: CATALOG SEARCH & FILTER -->
+        <section id="catalog-search" class="mb-12">
+            <div class="bg-parchment-200 p-6 rounded ornate-border border-parchment-800 shadow-md">
+                
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                    <div>
+                        <h2 class="text-2xl font-display font-bold text-parchment-900 flex items-center">
+                            <i class="fa-solid fa-magnifying-glass text-crimson-700 mr-3"></i>
+                            Archival Card Catalog Search
+                        </h2>
+                        <p class="text-xs font-mono text-parchment-800 mt-1">Search through titles, accession codes, eras, provenance notes, or formats.</p>
+                    </div>
+
+                    <!-- Search Input Box -->
+                    <div class="w-full md:w-80 relative">
+                        <input type="text" id="archival-search-input" placeholder="Type keyword, e.g., 'Maritime' or '1892'..." 
+                               class="w-full bg-parchment-50 border-2 border-brass-600 rounded px-4 py-2 pl-10 font-mono text-sm text-ink placeholder-parchment-800/60 focus:outline-none focus:border-crimson-700 shadow-inner">
+                        <i class="fa-solid fa-search absolute left-3 top-3 text-brass-600"></i>
+                    </div>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="flex flex-wrap gap-2 pt-2 border-t border-brass-600/30 font-mono text-xs" id="category-filters">
+                    <button data-category="ALL" class="filter-btn active bg-crimson-700 text-amber-100 border border-crimson-800 px-3 py-1.5 rounded shadow-sm hover:bg-crimson-800 transition">
+                        [ ALL RECORDS ]
+                    </button>
+                    <button data-category="Photographs" class="filter-btn bg-parchment-100 text-parchment-900 border border-brass-600 px-3 py-1.5 rounded hover:bg-brass-500/20 transition">
+                        Glass Plate Photography
+                    </button>
+                    <button data-category="Audio" class="filter-btn bg-parchment-100 text-parchment-900 border border-brass-600 px-3 py-1.5 rounded hover:bg-brass-500/20 transition">
+                        Wax Cylinder Audio
+                    </button>
+                    <button data-category="Film" class="filter-btn bg-parchment-100 text-parchment-900 border border-brass-600 px-3 py-1.5 rounded hover:bg-brass-500/20 transition">
+                        Silent Film Reels
+                    </button>
+                    <button data-category="Manuscripts" class="filter-btn bg-parchment-100 text-parchment-900 border border-brass-600 px-3 py-1.5 rounded hover:bg-brass-500/20 transition">
+                        Manuscripts & Letters
+                    </button>
+                    <button data-category="Cartography" class="filter-btn bg-parchment-100 text-parchment-900 border border-brass-600 px-3 py-1.5 rounded hover:bg-brass-500/20 transition">
+                        Maps & Cartography
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION: CURATED COLLECTIONS (FONDS) -->
+        <section id="collections-overview" class="mb-16">
+            <div class="flex items-center justify-between mb-6 border-b-2 border-crimson-700 pb-2">
+                <h2 class="text-2xl font-display font-bold text-parchment-900 flex items-center">
+                    <i class="fa-solid fa-boxes-packing text-crimson-700 mr-3"></i>
+                    II. Major Curated Collections (Archival Fonds)
+                </h2>
+                <span class="font-mono text-xs text-brass-600 uppercase font-bold">Fonds Series 100–400</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Fonds 104 -->
+                <div class="bg-parchment-100 p-5 rounded ornate-border border-brass-600/60 shadow flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start font-mono text-xs text-crimson-800 font-bold mb-2">
+                            <span>FONDS 104</span>
+                            <span class="bg-brass-500/20 px-2 py-0.5 rounded text-parchment-900">1780–1840</span>
+                        </div>
+                        <h3 class="font-display font-bold text-lg text-parchment-900 mb-2 leading-snug">Early Maritime Charts & Whaling Logs</h3>
+                        <p class="text-xs text-parchment-800 leading-relaxed mb-4">Hand-drawn nautical navigation maps, cartographic projections, and ship logs from Atlantic voyages.</p>
+                    </div>
+                    <div class="pt-3 border-t border-parchment-300 font-mono text-[11px] text-parchment-800 flex justify-between items-center">
+                        <span>342 Items Cataloged</span>
+                        <span class="text-crimson-700 font-bold">Open Access</span>
+                    </div>
+                </div>
+
+                <!-- Fonds 212 -->
+                <div class="bg-parchment-100 p-5 rounded ornate-border border-brass-600/60 shadow flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start font-mono text-xs text-crimson-800 font-bold mb-2">
+                            <span>FONDS 212</span>
+                            <span class="bg-brass-500/20 px-2 py-0.5 rounded text-parchment-900">1895–1928</span>
+                        </div>
+                        <h3 class="font-display font-bold text-lg text-parchment-900 mb-2 leading-snug">Industrial Audio & Phonograph Cylinders</h3>
+                        <p class="text-xs text-parchment-800 leading-relaxed mb-4">Edison brown wax cylinder recordings, oral history testimonies, and early factory ambient soundscapes.</p>
+                    </div>
+                    <div class="pt-3 border-t border-parchment-300 font-mono text-[11px] text-parchment-800 flex justify-between items-center">
+                        <span>118 Audio Records</span>
+                        <span class="text-crimson-700 font-bold">Digitized</span>
+                    </div>
+                </div>
+
+                <!-- Fonds 305 -->
+                <div class="bg-parchment-100 p-5 rounded ornate-border border-brass-600/60 shadow flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start font-mono text-xs text-crimson-800 font-bold mb-2">
+                            <span>FONDS 305</span>
+                            <span class="bg-brass-500/20 px-2 py-0.5 rounded text-parchment-900">1855–1910</span>
+                        </div>
+                        <h3 class="font-display font-bold text-lg text-parchment-900 mb-2 leading-snug">Victorian Glass Plate Daguerreotypes</h3>
+                        <p class="text-xs text-parchment-800 leading-relaxed mb-4">Silver gelatin and wet-collodion glass negatives detailing architectural developments and portraiture.</p>
+                    </div>
+                    <div class="pt-3 border-t border-parchment-300 font-mono text-[11px] text-parchment-800 flex justify-between items-center">
+                        <span>620 High-Res Scans</span>
+                        <span class="text-crimson-700 font-bold">Restored</span>
+                    </div>
+                </div>
+
+                <!-- Fonds 418 -->
+                <div class="bg-parchment-100 p-5 rounded ornate-border border-brass-600/60 shadow flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start font-mono text-xs text-crimson-800 font-bold mb-2">
+                            <span>FONDS 418</span>
+                            <span class="bg-brass-500/20 px-2 py-0.5 rounded text-parchment-900">1812–1888</span>
+                        </div>
+                        <h3 class="font-display font-bold text-lg text-parchment-900 mb-2 leading-snug">Botanical Expeditions & Field Manuscripts</h3>
+                        <p class="text-xs text-parchment-800 leading-relaxed mb-4">Pressed flora catalogs, hand-colored copperplate engravings, and naturalist journals from global expeditions.</p>
+                    </div>
+                    <div class="pt-3 border-t border-parchment-300 font-mono text-[11px] text-parchment-800 flex justify-between items-center">
+                        <span>402 Ephemera Sheets</span>
+                        <span class="text-crimson-700 font-bold">Full Text</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: THE VAULT (MEDIA SHOWCASE & CATALOG GRID) -->
+        <section id="the-vault" class="mb-16">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b-2 border-crimson-700 pb-2 gap-2">
+                <div>
+                    <h2 class="text-2xl font-display font-bold text-parchment-900 flex items-center">
+                        <i class="fa-solid fa-vault text-crimson-700 mr-3"></i>
+                        III. The Vault: Primary Source Media Repository
+                    </h2>
+                    <p class="text-xs font-mono text-parchment-800">Select any artifact card to open full accession files, inspect high-res scans, or listen to audio.</p>
+                </div>
+                <div class="font-mono text-xs bg-parchment-200 px-3 py-1 rounded border border-brass-500 text-parchment-900">
+                    Showing: <span id="visible-card-count" class="font-bold text-crimson-800">0</span> Records
+                </div>
+            </div>
+
+            <!-- Main Artifact Grid -->
+            <div id="catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Dynamically Populated via JavaScript -->
+            </div>
+        </section>
+
+        <!-- SPECIAL INTERACTIVE MEDIA PLAYERS SECTION -->
+        <section id="interactive-players" class="mb-16 grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Vintage Gramophone / Audio Player Widget -->
+            <div class="lg:col-span-6 bg-parchment-200 p-6 rounded ornate-border-gold shadow-xl flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center border-b border-brass-600/40 pb-3 mb-4">
+                        <h3 class="text-xl font-display font-bold text-parchment-900 flex items-center">
+                            <i class="fa-solid fa-record-vinyl text-crimson-700 mr-2"></i>
+                            Phonograph & Wax Cylinder Player
+                        </h3>
+                        <span class="archival-stamp text-[10px]">1908 EDISON STANDARD</span>
+                    </div>
+
+                    <!-- Audio Info Title -->
+                    <div class="bg-parchment-100 p-4 rounded border border-brass-500/50 mb-4">
+                        <div class="font-mono text-xs text-crimson-800 font-bold mb-1">RECORDING ACC: CYL-1908-44A</div>
+                        <h4 id="audio-title" class="font-display font-bold text-lg text-parchment-900">Field Recording: Boston Harbor Steam Whistles & Dockworkers</h4>
+                        <p class="text-xs text-parchment-800 mt-1">Recorded on Wax Cylinder, October 12, 1908. Restored by Dr. A. Vance.</p>
+                    </div>
+
+                    <!-- Audio Player Interactive Controls -->
+                    <div class="bg-parchment-900 text-parchment-100 p-4 rounded border border-brass-600 flex flex-col items-center justify-center space-y-4">
+                        <!-- Phonograph Animation Canvas / Visualizer -->
+                        <div class="flex items-center space-x-4">
+                            <div id="gramophone-disc" class="w-20 h-20 rounded-full border-4 border-brass-500 bg-black flex items-center justify-center transition-transform duration-1000">
+                                <div class="w-6 h-6 rounded-full bg-crimson-700 border-2 border-brass-400 flex items-center justify-center">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-amber-100"></div>
+                                </div>
+                            </div>
+                            <div class="space-y-1 font-mono text-xs">
+                                <div class="text-brass-400">AMPLITUDE WAVEFORM</div>
+                                <div class="flex items-end space-x-1 h-8 w-40 bg-black/40 p-1 border border-brass-600/50" id="waveform-bars">
+                                    <div class="w-2 bg-brass-500 h-2 animate-pulse"></div>
+                                    <div class="w-2 bg-brass-500 h-5 animate-pulse"></div>
+                                    <div class="w-2 bg-brass-500 h-3 animate-pulse"></div>
+                                    <div class="w-2 bg-brass-500 h-7 animate-pulse"></div>
+                                    <div class="w-2 bg-brass-500 h-4 animate-pulse"></div>
+                                    <div class="w-2 bg-brass-500 h-6 animate-pulse"></div>
+                                    <div class="w-2 bg-brass-500 h-2 animate-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Buttons & Sliders -->
+                        <div class="flex items-center space-x-4 w-full justify-center pt-2">
+                            <button id="play-audio-btn" class="bg-crimson-700 hover:bg-crimson-600 text-amber-100 px-5 py-2 rounded font-mono text-xs font-bold flex items-center space-x-2 border border-brass-500 transition-all">
+                                <i id="play-icon" class="fa-solid fa-play"></i>
+                                <span id="play-text">PLAY WAX CYLINDER</span>
+                            </button>
+                            <label class="flex items-center space-x-2 text-xs font-mono text-brass-400 cursor-pointer">
+                                <input type="checkbox" id="crackle-toggle" checked class="accent-crimson-700">
+                                <span>Cylinder Noise Filter</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Synchronized Audio Transcription -->
+                    <div class="mt-4">
+                        <div class="font-mono text-xs text-brass-600 font-bold mb-1 uppercase"><i class="fa-solid fa-quote-left mr-1"></i>Verbatim Transcription:</div>
+                        <div class="p-3 bg-parchment-100 rounded border border-brass-500/40 text-xs italic text-parchment-900 leading-relaxed">
+                            "[Crackling static] ... The morning fog clears over Pier 4. You can hear the steamer 'Atlantic Queen' blowing her three whistle blasts at 06:00 hours ... [Distant shouts of dockworkers loading wooden crates] ..."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 16mm Silent Film Reel Viewer -->
+            <div id="film-player-container" class="lg:col-span-6 bg-parchment-200 p-6 rounded ornate-border-gold shadow-xl flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center border-b border-brass-600/40 pb-3 mb-4">
+                        <h3 class="text-xl font-display font-bold text-parchment-900 flex items-center">
+                            <i class="fa-solid fa-film text-crimson-700 mr-2"></i>
+                            16mm Silent Film Reel Viewer
+                        </h3>
+                        <span class="archival-stamp archival-stamp-green text-[10px]">REEL #104-B</span>
+                    </div>
+
+                    <!-- Simulated Film Frame -->
+                    <div class="relative bg-black p-2 rounded border-4 border-parchment-800 overflow-hidden shadow-2xl">
+                        <!-- Film Perforations Edge Left/Right -->
+                        <div class="flex justify-between items-center absolute inset-x-0 top-0 p-1 pointer-events-none z-10 opacity-70">
+                            <div class="flex space-x-2"><div class="w-2 h-3 bg-parchment-300 rounded-sm"></div><div class="w-2 h-3 bg-parchment-300 rounded-sm"></div></div>
+                            <div class="flex space-x-2"><div class="w-2 h-3 bg-parchment-300 rounded-sm"></div><div class="w-2 h-3 bg-parchment-300 rounded-sm"></div></div>
+                        </div>
+
+                        <!-- Sepia Flickering Video Frame -->
+                        <div class="relative w-full h-52 bg-stone-900 overflow-hidden flex items-center justify-center border border-stone-800">
+                            <img id="film-frame-img" src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Silent Film Frame" 
+                                 class="w-full h-full object-cover sepia contrast-125 film-flicker">
+                            <div class="absolute inset-0 bg-amber-950/20 mix-blend-color pointer-events-none"></div>
+                            
+                            <!-- Subtitle Overlay -->
+                            <div class="absolute bottom-2 inset-x-4 bg-black/80 text-amber-100 p-2 font-mono text-[11px] text-center border border-amber-900/60">
+                                [SCENE 02: Construction of the Iron Suspension Bridge, July 1914]
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Frame Control Bar -->
+                    <div class="mt-4 flex items-center justify-between font-mono text-xs bg-parchment-100 p-3 rounded border border-brass-500/40">
+                        <span class="text-parchment-900">FPS Rate: <strong>16 Frames/Sec</strong></span>
+                        <div class="flex space-x-2">
+                            <button id="film-prev-btn" class="bg-parchment-300 hover:bg-brass-500/30 text-parchment-900 px-3 py-1 rounded border border-brass-600">
+                                <i class="fa-solid fa-backward-step"></i> Prev Frame
+                            </button>
+                            <button id="film-next-btn" class="bg-crimson-700 hover:bg-crimson-600 text-amber-100 px-3 py-1 rounded border border-crimson-800">
+                                Next Frame <i class="fa-solid fa-forward-step"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- SECTION: MANUSCRIPT READER & SIDE-BY-SIDE TRANSCRIPTION -->
+        <section id="manuscript-reader" class="mb-16">
+            <div class="flex items-center justify-between mb-6 border-b-2 border-crimson-700 pb-2">
+                <h2 class="text-2xl font-display font-bold text-parchment-900 flex items-center">
+                    <i class="fa-solid fa-scroll text-crimson-700 mr-3"></i>
+                    IV. Interactive Manuscript Reader & Transcriptions
+                </h2>
+                <span class="font-mono text-xs text-brass-600 uppercase font-bold">ACCESSION MS-1842-88B</span>
+            </div>
+
+            <div class="bg-parchment-100 rounded ornate-border border-brass-600 p-6 shadow-xl">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    
+                    <!-- Left Column: High-Res Original Scan -->
+                    <div class="lg:col-span-6 border-b lg:border-b-0 lg:border-r border-brass-600/40 pb-6 lg:pb-0 lg:pr-6">
+                        <div class="flex justify-between items-center mb-3 font-mono text-xs text-crimson-800 font-bold">
+                            <span>PRIMARY SCAN: 600 DPI TIFF</span>
+                            <span class="text-parchment-800">ORIGINAL HANDWRITTEN MANUSCRIPT</span>
+                        </div>
+                        <div class="relative bg-parchment-300 p-2 rounded border-2 border-brass-600 shadow-inner group">
+                            <img id="manuscript-scan-img" src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=900&q=80" 
+                                 alt="Original Manuscript Document Scan" 
+                                 class="w-full h-80 object-cover rounded filter contrast-110 shadow">
+                            <div class="absolute bottom-4 right-4 bg-parchment-900/80 text-amber-100 px-3 py-1 text-xs font-mono rounded backdrop-blur">
+                                <i class="fa-solid fa-magnifying-glass-plus mr-1"></i>Hover to Zoom Scan
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Clean Digitized Transcription -->
+                    <div class="lg:col-span-6 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-3 font-mono text-xs text-crimson-800 font-bold">
+                                <span>DIGITIZED TEXT TRANSCRIPTION</span>
+                                <span class="archival-stamp archival-stamp-green text-[9px]">VERIFIED BY ARCHIVIST</span>
+                            </div>
+                            <h3 class="font-display font-bold text-xl text-parchment-900 mb-2">
+                                Field Journal Entry: The Botanical Discovery of *Sarracenia purpurea* (1842)
+                            </h3>
+                            <div class="p-4 bg-parchment-50 rounded border border-brass-500/50 text-sm leading-relaxed text-parchment-900 font-serif italic space-y-3 h-64 overflow-y-auto">
+                                <p>
+                                    "14th of August, 1842 — Rain fell heavily overnight across the boglands. At first light, our expedition team ventured into the eastern marshland. It was here, beneath the shaded pine canopy, that we observed several specimens of the carnivorous Pitcher Plant."
+                                </p>
+                                <p>
+                                    "The leaf structure retains water efficiently, attracting indigenous insects into its interior hood. I have preserved three complete specimens in our alcohol vials for transportation back to the Royal Society collection."
+                                </p>
+                                <p class="font-mono text-xs text-parchment-800 not-italic border-t border-parchment-300 pt-2">
+                                    [Signed] Prof. Thaddeus Sterling, Chair of Natural Philosophy.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 flex items-center justify-between border-t border-brass-600/30 mt-4 font-mono text-xs">
+                            <span class="text-parchment-800">Language: English (19th C.)</span>
+                            <button onclick="copyTranscriptionText()" class="bg-brass-500/20 hover:bg-brass-500/40 text-parchment-900 px-3 py-1.5 rounded border border-brass-600 font-bold transition">
+                                <i class="fa-regular fa-copy mr-1"></i>Copy Text
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: ARCHIVIST'S STATEMENT & CONSERVATION ETHICS -->
+        <section id="archivist-statement" class="mb-16">
+            <div class="bg-parchment-200 p-8 rounded ornate-border-gold shadow-xl">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    
+                    <!-- Portrait -->
+                    <div class="md:col-span-4 text-center">
+                        <div class="relative inline-block">
+                            <div class="w-48 h-48 mx-auto rounded-full p-2 bg-parchment-100 ornate-border border-crimson-700 shadow-2xl overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80" 
+                                     alt="Dr. Aurelius Vance, Senior Archivist" 
+                                     class="w-full h-full object-cover sepia grayscale contrast-125">
+                            </div>
+                            <div class="wax-seal absolute bottom-0 right-2 shadow-lg">
+                                <span class="text-xs">AV</span>
+                            </div>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-parchment-900 mt-4">Dr. Aurelius Vance, Ph.D.</h3>
+                        <p class="font-mono text-xs text-crimson-800 uppercase font-bold">Senior Curator & Preservation Officer</p>
+                    </div>
+
+                    <!-- Bio & Ethics Text -->
+                    <div class="md:col-span-8 space-y-4">
+                        <h2 class="text-2xl font-display font-bold text-parchment-900 border-b border-brass-600/40 pb-2">
+                            V. Archivist's Statement & Digitization Ethics
+                        </h2>
+                        <p class="text-sm text-parchment-900 leading-relaxed">
+                            "Preservation is not merely the static storage of physical artifacts; it is the active curation of human memory. Our mandate requires adhering strictly to non-destructive high-resolution capture techniques, maintaining provenance records, and ensuring equitable public access."
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs pt-2">
+                            <div class="bg-parchment-100 p-3 rounded border border-brass-500/50">
+                                <strong class="text-crimson-800 block mb-1"><i class="fa-solid fa-shield-cat mr-1"></i>ACID-FREE STANDARDS</strong>
+                                All original physical papers are maintained at 18°C and 45% relative humidity in archival-grade boxes.
+                            </div>
+                            <div class="bg-parchment-100 p-3 rounded border border-brass-500/50">
+                                <strong class="text-crimson-800 block mb-1"><i class="fa-solid fa-key mr-1"></i>OPEN REPOSITORY ACCESS</strong>
+                                Public domain materials are digitized in lossy & lossless TIFF formats for global scholarly research.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: CITATION GENERATOR TOOL -->
+        <section id="citation-generator" class="mb-16">
+            <div class="flex items-center justify-between mb-6 border-b-2 border-crimson-700 pb-2">
+                <h2 class="text-2xl font-display font-bold text-parchment-900 flex items-center">
+                    <i class="fa-solid fa-quote-right text-crimson-700 mr-3"></i>
+                    VI. Archival Citation Generator
+                </h2>
+                <span class="font-mono text-xs text-brass-600 uppercase font-bold">SCHOLARLY FORMATTING ENGINE</span>
+            </div>
+
+            <div class="bg-parchment-100 p-6 rounded ornate-border border-brass-600 shadow-lg">
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-mono text-xs font-bold text-parchment-900 mb-1">SELECT ARTIFACT FOR CITATION:</label>
+                            <select id="citation-artifact-select" class="w-full bg-parchment-50 border border-brass-600 rounded px-3 py-2 font-mono text-xs text-ink focus:outline-none focus:border-crimson-700">
+                                <!-- Populated dynamically -->
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-mono text-xs font-bold text-parchment-900 mb-1">CITATION STYLE:</label>
+                            <div class="flex space-x-2 font-mono text-xs" id="citation-style-buttons">
+                                <button data-style="CHICAGO" class="cit-btn active bg-crimson-700 text-amber-100 px-3 py-2 rounded font-bold border border-crimson-800">
+                                    CHICAGO 17TH (MANUAL)
+                                </button>
+                                <button data-style="APA" class="cit-btn bg-parchment-200 text-parchment-900 px-3 py-2 rounded font-bold border border-brass-600 hover:bg-brass-500/20">
+                                    APA 7TH
+                                </button>
+                                <button data-style="MLA" class="cit-btn bg-parchment-200 text-parchment-900 px-3 py-2 rounded font-bold border border-brass-600 hover:bg-brass-500/20">
+                                    MLA 9TH
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Generated Citation Result Box -->
+                    <div class="mt-4 p-4 bg-parchment-900 text-parchment-100 rounded border border-brass-600 font-mono text-xs relative">
+                        <div class="text-brass-400 font-bold mb-1 uppercase">FORMATTED CITATION OUTPUT:</div>
+                        <p id="citation-output-text" class="leading-relaxed select-all">
+                            Selecting artifact citation...
+                        </p>
+                        <button onclick="copyGeneratedCitation()" class="mt-3 bg-brass-500 hover:bg-brass-600 text-parchment-900 font-bold px-4 py-1.5 rounded flex items-center space-x-2 text-xs transition">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>COPY CITATION TO CLIPBOARD</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: MATERIAL ACCESS REQUEST FORM -->
+        <section id="access-request" class="mb-16">
+            <div class="bg-parchment-200 p-8 rounded ornate-border-gold shadow-xl">
+                <div class="max-w-3xl mx-auto">
+                    <div class="text-center mb-8">
+                        <div class="wax-seal mx-auto mb-3 shadow-lg">
+                            <i class="fa-solid fa-file-signature text-xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-display font-bold text-parchment-900">
+                            VII. Archival Material Access & Reproduction Request
+                        </h2>
+                        <p class="text-xs font-mono text-parchment-800 mt-2">FORM 204-C &bull; SUBMIT FOR HIGH-RES TIFF OR PHYSICAL ACCESS PERMISSION</p>
+                    </div>
+
+                    <form id="material-request-form" class="space-y-6 font-mono text-xs">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block font-bold text-parchment-900 mb-1">RESEARCHER FULL NAME *</label>
+                                <input type="text" required placeholder="e.g., Dr. Eleanor Vance" class="w-full bg-parchment-50 border border-brass-600 rounded px-3 py-2 text-ink focus:outline-none focus:border-crimson-700">
+                            </div>
+                            <div>
+                                <label class="block font-bold text-parchment-900 mb-1">INSTITUTION / AFFILIATION *</label>
+                                <input type="text" required placeholder="e.g., Oxford Dept of History" class="w-full bg-parchment-50 border border-brass-600 rounded px-3 py-2 text-ink focus:outline-none focus:border-crimson-700">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block font-bold text-parchment-900 mb-1">ACCESSION CODE REQUESTED *</label>
+                                <input type="text" required placeholder="e.g., MS-1842-88B or MAP-1794-01" class="w-full bg-parchment-50 border border-brass-600 rounded px-3 py-2 text-ink focus:outline-none focus:border-crimson-700">
+                            </div>
+                            <div>
+                                <label class="block font-bold text-parchment-900 mb-1">INTENDED USE FORMAT *</label>
+                                <select class="w-full bg-parchment-50 border border-brass-600 rounded px-3 py-2 text-ink focus:outline-none focus:border-crimson-700">
+                                    <option>Academic Publication (TIFF Download)</option>
+                                    <option>Physical Reading Room Access Request</option>
+                                    <option>Documentary Film License</option>
+                                    <option>Personal Research & Study</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-parchment-900 mb-1">RESEARCH PURPOSE & STATEMENT OF INTENT *</label>
+                            <textarea rows="4" required placeholder="Provide brief context regarding your historical research or project..." class="w-full bg-parchment-50 border border-brass-600 rounded px-3 py-2 text-ink focus:outline-none focus:border-crimson-700"></textarea>
+                        </div>
+
+                        <div class="flex items-center space-x-2 pt-2">
+                            <input type="checkbox" id="terms-check" required class="accent-crimson-700 w-4 h-4">
+                            <label for="terms-check" class="text-[11px] text-parchment-900">I agree to abide by non-commercial fair use citation standards and archival integrity rules.</label>
+                        </div>
+
+                        <div class="text-center pt-4">
+                            <button type="submit" class="bg-crimson-700 hover:bg-crimson-800 text-amber-100 font-bold px-8 py-3 rounded-sm border-2 border-brass-500 shadow-lg transition-all transform hover:scale-105">
+                                <i class="fa-solid fa-paper-plane mr-2"></i>SUBMIT APPLICATION FOR CLEARANCE
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Page Footer -->
+    <footer class="bg-parchment-900 text-parchment-200 border-t-4 border-double border-brass-600 py-10 px-4 mt-auto">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 font-mono text-xs">
+            <div>
+                <h4 class="font-display text-lg text-brass-400 font-bold mb-3">The Registry of Historical Artifacts</h4>
+                <p class="text-parchment-300 leading-relaxed mb-3">
+                    A digitized special collection repository dedicated to preserving rare manuscripts, glass plate photography, and audio cylinders.
+                </p>
+                <div class="text-brass-500">
+                    &copy; 2026 Special Collections Vault. All Rights Reserved.
+                </div>
+            </div>
+
+            <div>
+                <h4 class="font-display text-lg text-brass-400 font-bold mb-3">Repository Hours & Location</h4>
+                <ul class="space-y-1.5 text-parchment-300">
+                    <li><i class="fa-solid fa-clock text-brass-500 mr-2"></i>Mon–Fri: 09:00 - 17:00 EST</li>
+                    <li><i class="fa-solid fa-location-dot text-brass-500 mr-2"></i>Reading Room: Wing B, Rare Books Building</li>
+                    <li><i class="fa-solid fa-envelope text-brass-500 mr-2"></i>archives@registry-historical.org</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-display text-lg text-brass-400 font-bold mb-3">Standards & Preservation</h4>
+                <div class="space-y-2">
+                    <span class="inline-block bg-parchment-800 text-brass-400 px-2 py-1 rounded border border-brass-600/40 mr-1 mb-1">OAIS COMPLIANT</span>
+                    <span class="inline-block bg-parchment-800 text-brass-400 px-2 py-1 rounded border border-brass-600/40 mr-1 mb-1">DUBLIN CORE METADATA</span>
+                    <span class="inline-block bg-parchment-800 text-brass-400 px-2 py-1 rounded border border-brass-600/40 mr-1 mb-1">PREMIS PRESERVATION</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- RESEARCH FOLDER MODAL DRAWER -->
+    <div id="research-drawer" class="fixed inset-y-0 right-0 w-full sm:w-96 bg-parchment-100 z-50 shadow-2xl border-l-4 border-crimson-700 transform translate-x-full transition-transform duration-300 flex flex-col">
+        <div class="bg-parchment-900 text-parchment-100 p-4 flex justify-between items-center border-b border-brass-600">
+            <h3 class="font-display font-bold text-lg flex items-center">
+                <i class="fa-solid fa-folder-open text-brass-400 mr-2"></i>Research Folder
+            </h3>
+            <button id="close-research-drawer" class="text-brass-400 hover:text-amber-100 text-xl font-bold">
+                &times;
+            </button>
+        </div>
+
+        <div id="research-drawer-items" class="p-4 flex-grow overflow-y-auto space-y-3 font-mono text-xs">
+            <!-- Dynamically populated items -->
+            <p class="text-parchment-800 italic text-center py-8">Your saved citations folder is currently empty.</p>
+        </div>
+
+        <div class="p-4 bg-parchment-200 border-t border-brass-600/40 font-mono text-xs space-y-2">
+            <button onclick="clearResearchFolder()" class="w-full bg-parchment-300 hover:bg-parchment-400 text-parchment-900 py-2 rounded border border-brass-600 font-bold">
+                Clear Saved Folder
+            </button>
+        </div>
+    </div>
+
+    <!-- ITEM INSPECTOR MODAL -->
+    <div id="item-modal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-parchment-100 rounded-lg ornate-border-gold max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 relative shadow-2xl">
+            <button id="close-item-modal" class="absolute top-4 right-4 text-parchment-900 hover:text-crimson-700 text-2xl font-bold">
+                &times;
+            </button>
+
+            <div id="modal-content">
+                <!-- Dynamically populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ARCHIVAL DATASET */
+        const archivalData = [
+            {
+                id: "ART-101",
+                title: "Navigational Chart of North Atlantic Trade Routes",
+                fonds: "FONDS 104",
+                category: "Cartography",
+                date: "October 14, 1794",
+                accession: "MAP-1794-0882",
+                provenance: "Donated by Captain H. Thorne Estate, 1922.",
+                condition: "Fair — Minor foxing on margins, ink stable.",
+                access: "Public Domain",
+                image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80",
+                description: "Hand-colored copperplate engraving mapping transatlantic trade corridors, shallow shoals, and magnetic compass variations.",
+                transcription: "Charted under authority of the Admiralty Commissioners. Depth soundings given in fathoms at low tide."
+            },
+            {
+                id: "ART-102",
+                title: "Boston Harbor Steam Whistles & Dockers",
+                fonds: "FONDS 212",
+                category: "Audio",
+                date: "October 12, 1908",
+                accession: "CYL-1908-44A",
+                provenance: "Recorded by E. Edison Audio Expedition Team.",
+                condition: "Good — Wax groove degradation 12%.",
+                access: "Digitized Audio",
+                image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80",
+                description: "Authentic brown wax cylinder field sound recording capturing industrial harbor activity and steamship arrival.",
+                transcription: "[Whistle Bends 3 Long Blasts] Steamer Atlantic Queen docking at Pier 4. Dockers shouting in background."
+            },
+            {
+                id: "ART-103",
+                title: "Portrait of Victorian Textile Workers",
+                fonds: "FONDS 305",
+                category: "Photographs",
+                date: "March 22, 1888",
+                accession: "PH-1888-901B",
+                provenance: "Acquired from Lancashire Historical Trust.",
+                condition: "Excellent — Restored Silver Gelatin Scan.",
+                access: "Public Domain",
+                image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80",
+                description: "Glass plate photography capturing cotton mill weavers alongside mechanical looms in Manchester.",
+                transcription: "Inscribed on glass margin: 'Shift 2 Weavers — Mill No. 4'."
+            },
+            {
+                id: "ART-104",
+                title: "Iron Bridge Construction Silent Footage",
+                fonds: "FONDS 104",
+                category: "Film",
+                date: "July 04, 1914",
+                accession: "REEL-1914-02",
+                provenance: "Archival Kinematograph News Reel archive.",
+                condition: "Conserved 16mm Nitrate Film.",
+                access: "Restricted Film",
+                image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80",
+                description: "Early silent monochrome newsreel documenting riveting of suspension spans across the river valley.",
+                transcription: "Title Card: 'ENGINEERING MARVEL OF THE AGE — SPANNING THE GORGE AT 200 FEET'."
+            },
+            {
+                id: "ART-105",
+                title: "Botanical Expedition Field Notes on Ferns",
+                fonds: "FONDS 418",
+                category: "Manuscripts",
+                date: "August 14, 1842",
+                accession: "MS-1842-88B",
+                provenance: "Royal Botanical Society Archive.",
+                condition: "Parchment intact, iron gall ink clear.",
+                access: "Public Domain",
+                image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+                description: "Bound leather field journal detailing carnivorous pitcher plant and bog fern classifications.",
+                transcription: "14th of August 1842 — Rain fell heavily overnight across boglands..."
+            },
+            {
+                id: "ART-106",
+                title: "Astronomy Quadrant & Star Map Plate",
+                fonds: "FONDS 104",
+                category: "Cartography",
+                date: "November 03, 1812",
+                accession: "MAP-1812-110",
+                provenance: "Greenwich Observatory Records.",
+                condition: "Minor tears along fold lines.",
+                access: "Public Domain",
+                image: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80",
+                description: "Celestial chart marking southern hemisphere constellation alignments recorded during naval expeditions.",
+                transcription: "Calculated for Meridian of Greenwich observatory."
+            }
+        ];
+
+        /* STATE MANAGEMENT */
+        let researchFolder = JSON.parse(localStorage.getItem('archival_research_folder') || '[]');
+        let activeCategory = 'ALL';
+        let searchQuery = '';
+        let isAudioPlaying = false;
+        let audioSynthInterval = null;
+
+        /* INITIALIZATION ON DOM LOAD */
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCatalogGrid();
+            updateResearchBadge();
+            populateCitationSelect();
+            setupEventListeners();
+        });
+
+        /* RENDER CATALOG CARDS */
+        function renderCatalogGrid() {
+            const grid = document.getElementById('catalog-grid');
+            grid.innerHTML = '';
+
+            const filtered = archivalData.filter(item => {
+                const matchesCat = (activeCategory === 'ALL' || item.category === activeCategory);
+                const matchesSearch = searchQuery === '' || 
+                    item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    item.accession.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    item.description.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCat && matchesSearch;
+            });
+
+            document.getElementById('visible-card-count').innerText = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 bg-parchment-100 rounded ornate-border">
+                        <i class="fa-solid fa-box-open text-4xl text-brass-600 mb-2"></i>
+                        <p class="font-display font-bold text-lg text-parchment-900">No Archival Records Found</p>
+                        <p class="font-mono text-xs text-parchment-800">Try adjusting your search filter or category selection.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "catalog-card bg-parchment-100 rounded ornate-border border-brass-600/60 p-5 flex flex-col justify-between shadow";
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="relative h-44 mb-4 rounded border border-brass-600/40 overflow-hidden bg-parchment-300">
+                            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover sepia contrast-110">
+                            <span class="absolute top-2 left-2 bg-parchment-900/90 text-brass-400 font-mono text-[10px] px-2 py-0.5 rounded border border-brass-600">
+                                ${item.accession}
+                            </span>
+                            <span class="absolute bottom-2 right-2 bg-crimson-700 text-amber-100 font-mono text-[10px] px-2 py-0.5 rounded font-bold">
+                                ${item.category}
+                            </span>
+                        </div>
+
+                        <div class="font-mono text-[11px] text-crimson-800 font-bold mb-1">${item.fonds} &bull; ${item.date}</div>
+                        <h3 class="font-display font-bold text-lg text-parchment-900 mb-2 leading-snug">${item.title}</h3>
+                        <p class="text-xs text-parchment-800 leading-relaxed mb-4 line-clamp-2">${item.description}</p>
+                    </div>
+
+                    <div class="pt-3 border-t border-parchment-300 flex items-center justify-between font-mono text-xs">
+                        <button onclick="openItemModal('${item.id}')" class="text-crimson-800 hover:text-crimson-600 font-bold flex items-center">
+                            <i class="fa-solid fa-folder-open mr-1"></i>Inspect Record
+                        </button>
+                        <button onclick="addToResearchFolder('${item.id}')" class="bg-brass-500/20 hover:bg-brass-500/40 text-parchment-900 px-2.5 py-1 rounded border border-brass-600 font-bold transition">
+                            + Add to Folder
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        /* EVENT LISTENERS SETUP */
+        function setupEventListeners() {
+            // Category Buttons
+            document.querySelectorAll('#category-filters .filter-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('#category-filters .filter-btn').forEach(b => {
+                        b.className = "filter-btn bg-parchment-100 text-parchment-900 border border-brass-600 px-3 py-1.5 rounded hover:bg-brass-500/20 transition";
+                    });
+                    e.target.className = "filter-btn active bg-crimson-700 text-amber-100 border border-crimson-800 px-3 py-1.5 rounded shadow-sm font-bold";
+                    activeCategory = e.target.getAttribute('data-category');
+                    renderCatalogGrid();
+                });
+            });
+
+            // Live Search Input
+            document.getElementById('archival-search-input').addEventListener('input', (e) => {
+                searchQuery = e.target.value;
+                renderCatalogGrid();
+            });
+
+            // Drawer Toggle
+            document.getElementById('open-research-folder').addEventListener('click', () => {
+                document.getElementById('research-drawer').classList.remove('translate-x-full');
+            });
+            document.getElementById('close-research-drawer').addEventListener('click', () => {
+                document.getElementById('research-drawer').classList.add('translate-x-full');
+            });
+
+            // Modal Close
+            document.getElementById('close-item-modal').addEventListener('click', () => {
+                document.getElementById('item-modal').classList.add('hidden');
+            });
+
+            // Audio Player Web Audio API Simulation
+            document.getElementById('play-audio-btn').addEventListener('click', toggleAudioPlayback);
+
+            // Film Player Controls
+            document.getElementById('film-next-btn').addEventListener('click', () => {
+                const img = document.getElementById('film-frame-img');
+                img.style.opacity = '0.4';
+                setTimeout(() => img.style.opacity = '1', 100);
+            });
+
+            // Form Submit
+            document.getElementById('material-request-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Archival Clearance Application Submitted! An email receipt has been registered with Clearance Code #CLR-2026-99A.');
+                e.target.reset();
+            });
+        }
+
+        /* AUDIO PLAYER SIMULATION (WEB AUDIO SYNTH) */
+        function toggleAudioPlayback() {
+            const btnText = document.getElementById('play-text');
+            const btnIcon = document.getElementById('play-icon');
+            const disc = document.getElementById('gramophone-disc');
+
+            if (!isAudioPlaying) {
+                isAudioPlaying = true;
+                btnText.innerText = "PAUSE CYLINDER";
+                btnIcon.className = "fa-solid fa-pause";
+                disc.classList.add('animate-spin');
+                
+                // Play simulated sound crackle via Web Audio API
+                try {
+                    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(120, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.05, ctx.currentTime);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 3);
+                } catch(e) {}
+
+            } else {
+                isAudioPlaying = false;
+                btnText.innerText = "PLAY WAX CYLINDER";
+                btnIcon.className = "fa-solid fa-play";
+                disc.classList.remove('animate-spin');
+            }
+        }
+
+        /* ITEM INSPECTOR MODAL */
+        function openItemModal(id) {
+            const item = archivalData.find(a => a.id === id);
+            if (!item) return;
+
+            const modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = `
+                <div class="flex justify-between items-start border-b border-brass-600/40 pb-3 mb-4">
+                    <div>
+                        <div class="font-mono text-xs text-crimson-800 font-bold">${item.accession} &bull; ${item.fonds}</div>
+                        <h2 class="font-display font-bold text-2xl text-parchment-900 mt-1">${item.title}</h2>
+                    </div>
+                    <span class="archival-stamp text-[10px]">${item.access}</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="rounded border border-brass-600 overflow-hidden bg-black">
+                        <img src="${item.image}" alt="${item.title}" class="w-full h-64 object-cover sepia">
+                    </div>
+                    <div class="space-y-2 font-mono text-xs text-parchment-900">
+                        <div class="bg-parchment-200 p-2 rounded border border-brass-500/40">
+                            <strong>Date of Origin:</strong> ${item.date}
+                        </div>
+                        <div class="bg-parchment-200 p-2 rounded border border-brass-500/40">
+                            <strong>Provenance:</strong> ${item.provenance}
+                        </div>
+                        <div class="bg-parchment-200 p-2 rounded border border-brass-500/40">
+                            <strong>Physical Condition:</strong> ${item.condition}
+                        </div>
+                        <div class="bg-parchment-200 p-2 rounded border border-brass-500/40">
+                            <strong>Format / Medium:</strong> ${item.category}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-parchment-200 p-4 rounded border border-brass-500/50 mb-6">
+                    <h4 class="font-mono text-xs font-bold text-crimson-800 mb-1">ARCHIVAL DESCRIPTION & TRANSCRIPTION:</h4>
+                    <p class="text-xs text-parchment-900 leading-relaxed mb-2">${item.description}</p>
+                    <p class="text-xs font-serif italic text-parchment-800 border-t border-parchment-300 pt-2">"${item.transcription}"</p>
+                </div>
+
+                <div class="flex justify-end space-x-3 font-mono text-xs">
+                    <button onclick="addToResearchFolder('${item.id}')" class="bg-crimson-700 hover:bg-crimson-800 text-amber-100 font-bold px-4 py-2 rounded border border-brass-500">
+                        + Save to Research Folder
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('item-modal').classList.remove('hidden');
+        }
+
+        /* RESEARCH FOLDER MANAGEMENT */
+        function addToResearchFolder(id) {
+            const item = archivalData.find(a => a.id === id);
+            if (!item) return;
+
+            if (!researchFolder.some(i => i.id === id)) {
+                researchFolder.push(item);
+                localStorage.setItem('archival_research_folder', JSON.stringify(researchFolder));
+                updateResearchBadge();
+                renderResearchDrawerItems();
+                alert(`Added "${item.title}" to your Research Folder.`);
+            } else {
+                alert('Item is already in your research folder.');
+            }
+        }
+
+        function updateResearchBadge() {
+            document.getElementById('research-count').innerText = researchFolder.length;
+        }
+
+        function renderResearchDrawerItems() {
+            const container = document.getElementById('research-drawer-items');
+            if (researchFolder.length === 0) {
+                container.innerHTML = `<p class="text-parchment-800 italic text-center py-8">Your saved citations folder is currently empty.</p>`;
+                return;
+            }
+
+            container.innerHTML = '';
+            researchFolder.forEach(item => {
+                const div = document.createElement('div');
+                div.className = "bg-parchment-200 p-3 rounded border border-brass-600/40 flex justify-between items-center";
+                div.innerHTML = `
+                    <div>
+                        <div class="font-bold text-parchment-900">${item.title}</div>
+                        <div class="text-[10px] text-crimson-800">${item.accession}</div>
+                    </div>
+                    <button onclick="removeFromFolder('${item.id}')" class="text-crimson-800 hover:text-crimson-600 font-bold text-base px-2">
+                        &times;
+                    </button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function removeFromFolder(id) {
+            researchFolder = researchFolder.filter(i => i.id !== id);
+            localStorage.setItem('archival_research_folder', JSON.stringify(researchFolder));
+            updateResearchBadge();
+            renderResearchDrawerItems();
+        }
+
+        function clearResearchFolder() {
+            researchFolder = [];
+            localStorage.removeItem('archival_research_folder');
+            updateResearchBadge();
+            renderResearchDrawerItems();
+        }
+
+        /* CITATION GENERATOR LOGIC */
+        function populateCitationSelect() {
+            const select = document.getElementById('citation-artifact-select');
+            select.innerHTML = '';
+            archivalData.forEach(item => {
+                const opt = document.createElement('option');
+                opt.value = item.id;
+                opt.innerText = `${item.accession} — ${item.title}`;
+                select.appendChild(opt);
+            });
+
+            select.addEventListener('change', generateCitationOutput);
+            document.querySelectorAll('#citation-style-buttons .cit-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('#citation-style-buttons .cit-btn').forEach(b => {
+                        b.className = "cit-btn bg-parchment-200 text-parchment-900 px-3 py-2 rounded font-bold border border-brass-600 hover:bg-brass-500/20";
+                    });
+                    e.target.className = "cit-btn active bg-crimson-700 text-amber-100 px-3 py-2 rounded font-bold border border-crimson-800";
+                    generateCitationOutput();
+                });
+            });
+
+            generateCitationOutput();
+        }
+
+        function generateCitationOutput() {
+            const select = document.getElementById('citation-artifact-select');
+            const item = archivalData.find(a => a.id === select.value) || archivalData[0];
+            const activeStyleBtn = document.querySelector('#citation-style-buttons .cit-btn.active');
+            const style = activeStyleBtn ? activeStyleBtn.getAttribute('data-style') : 'CHICAGO';
+            const output = document.getElementById('citation-output-text');
+
+            if (style === 'CHICAGO') {
+                output.innerText = `Vance, Aurelius, ed. "${item.title}." ${item.date}. ${item.fonds}, Accession ${item.accession}. The Registry of Historical Artifacts & Special Collections Repository.`;
+            } else if (style === 'APA') {
+                output.innerText = `Special Collections Department. (${item.date.split(', ')[1] || '2026'}). ${item.title} (Accession No. ${item.accession}) [${item.category}]. The Registry of Historical Artifacts.`;
+            } else {
+                output.innerText = `"${item.title}." ${item.date}. ${item.fonds}, The Registry of Historical Artifacts, ${item.accession}. Web. 2026.`;
+            }
+        }
+
+        function copyGeneratedCitation() {
+            const text = document.getElementById('citation-output-text').innerText;
+            navigator.clipboard.writeText(text);
+            alert('Citation copied to clipboard!');
+        }
+
+        function copyTranscriptionText() {
+            alert('Transcription text copied to clipboard!');
+        }
+    </script>
+</body>
+</html>
